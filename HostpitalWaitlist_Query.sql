@@ -160,4 +160,9 @@ WHERE s.[DepartmentID] = 'PS' AND DATEDIFF(YEAR, p.[DOB], r.[FSA]) >= 18;
 GO
 
 -- Query 5 : What percentage of people were seen within the 75 day target, by department
--- I have no idea. I'm forfeiting these marks
+-- I've got the percentage seen overall.
+SELECT d.[DepartmentName] AS 'Department Name', 
+(SELECT ((COUNT(CASE WHEN r.[DaysOnWaitlist] <= 75 THEN 1 END) * 100) / COUNT(*)) FROM [dbo].[Referral] r) AS 'Percent Seen' 
+FROM [dbo].[Department] d;
+GO
+
